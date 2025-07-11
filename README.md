@@ -2,7 +2,7 @@
 A small script to customize your own alert notification sounds
 
 1. Install NodeJS
-2. Get an api token in the Medrunner Profile (https://staff.medrunner.space/profile)
+2. Get an api token in the Medrunner Profile
 3. Get your sound files in the directory, they need to be `.wav`
 4. Install dependencies by `npm i -r requirements.txt`
 5. Rename `.env.example` to `.env`
