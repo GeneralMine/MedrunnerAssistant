@@ -37,9 +37,8 @@ if (process.env.ENABLE_ALERTS === "true") {
 
 if (process.env.ENABLE_CHATMESSAGE === "true") {
 	ws.on("ChatMessageCreate", async (chatMessage) => {
-	
 		console.log("New chat message received: " + JSON.stringify(chatMessage.contents));
-		if(process.env.USERID != chatMessage.senderId){
+		if (self.data.id !== chatMessage.senderId) {
 			try {
 				await playAudio(process.env.CHATMESSAGE_SOUND);
 				console.log("Playback finished for chatmessage.");
