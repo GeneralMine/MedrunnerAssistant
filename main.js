@@ -51,14 +51,13 @@ if (process.env.ENABLE_CHATMESSAGE === "true") {
 
 if (process.env.ENABLE_TEAMUPDATE === "true") {
 	ws.on("TeamUpdate", async (teamUpdate) => {
-	
 		console.log("New team update received");
 		await updateUser();
-		if(self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id){
-			if(teamUpdate.waitList && teamUpdate.waitList.length > 0){
-				teamUpdate.waitList.forEach(element => {
+		if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
+			if (teamUpdate.waitList && teamUpdate.waitList.length > 0) {
+				teamUpdate.waitList.forEach((element) => {
 					console.log(element.rsiHandle + " has requested to join the team");
-					console.log("After accepting this request, the team will be " + (teamUpdate.members.length+teamUpdate.waitList.length) + " people big")
+					console.log("After accepting this request, the team will be " + (teamUpdate.members.length + teamUpdate.waitList.length) + " people big");
 				});
 				try {
 					await playAudio(process.env.TEAMUPDATE_SOUND);
@@ -79,6 +78,6 @@ ws.onclose(async () => {
 	console.log("Connection has been lost");
 });
 
-async function updateUser(){
+async function updateUser() {
 	self = await api.client.get();
 }

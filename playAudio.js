@@ -1,21 +1,20 @@
-// playAudio.js
-import { exec } from "child_process";
-import path from "path";
+// Copied this solution from stack overflow: https://stackoverflow.com/a/79286769
+import { spawn } from "node:child_process";
 
-export function playAudio(filePath) {
-	return new Promise((resolve, reject) => {
-		const fullPath = path.resolve(filePath);
+// On Windows we can offload the work to PowerShell:
+const winFn = (filePath) => spawn(`powershell`, [`-c`, `(`, `New-Object`, `Media.SoundPlayer`, `"${filePath}"`, `).PlaySync();`]);
 
-		// PowerShell command to play audio synchronously
-		const command = `powershell -c (New-Object Media.SoundPlayer '${fullPath}').PlaySync();`;
+// On MacOS, we have afplay available:
+const macFn = (filePath) => spawn(`afplay`, [filePath]);
 
-		exec(command, (err, stdout, stderr) => {
-			if (err) {
-				console.error("PowerShell error:", stderr);
-				reject(err);
-			} else {
-				resolve();
-			}
-		});
-	});
-}
+// And on everything else, i.e. linux/unix, we can use aplay:
+const nxFn = (filePath) => spawn(`aplay`, [filePath]);
+
+// Then, because your OS doesn't change during a script
+// run, we can simply bind the single function we'll need
+// as "play(filePath)":
+const { platform: os } = process;
+const playAudio = os === `win32` ? winFn : os === `darwin` ? macFn : nxFn;
+
+// And then we can just export that for use anywhere in our codebase.
+export { playAudio };
