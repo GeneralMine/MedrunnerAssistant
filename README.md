@@ -2,24 +2,37 @@
 Make your life as Medrunner easier with custom alert notifications and LEAD tools.
 
 ## Features
-- Play custom sound if an alert came in
-- Play custom sound if a new chat message of an alert came in (as LEAD)
-- Play custom sound if a medrunner requests joining your team (as LEAD)
+- `Alert`: Custom sound for incoming alerts
+- `Chat`: Custom sound for client chat messages
+- `Team`: Custom sound for team join requests
 
 ## Planned features:
-- `AAR`: Auto fill out AAR Template with clients questionaire for copy pasta
-- `Timestamps`: Make it easy to keep track of the timestamps of the alert with an easy input for LEAD
-- `Activity`: Stop notification sound when user has gotten active on the computer
-- `SoundControl`Volume Control for every sound
-- `GUI` overlay flashy but professional informing about new alert
-- `GUI` overlay displays basic alert info
-- `GUI` overlay displays additional information on location e.g. temperature, oxygen, mean travel time
+- `AAR`: Autofill AAR Template based on clients questionaire from the chat
+- `Timestamps`: Track Timestamps for LEAD
+- `Activity`: Detect if user is active (or fallen asleep)
+- `Sounds`: Volume Control for all sounds and OS
+- `GUI`: Enable/Disable sounds and select volume
+- `GUI`: Easy and flashy overlay informing about alert
+- `GUI`: overlay displays basic alert info
+  - Client Name
+  - Thread Level
+  - System
+  - Planet Body
+  - Location
+- `GUI`: overlay displays additional information
+  - Temperature
+  - Oxygen
+  - Mean travel time from musterpoint
+  - Hostile/Peaceful place
+  - Peaceful with missions
+  - Turrets
+  - Terrain to hide from turrets or not
+  - Recommended ships to use
+  - Landing/Dropoff/Cover sites
 
 ## Set it up yourself
-`NOTICE: Currently it utilized Powershell and Windows Media Player for the sound playback. So it wont work on any other machine than Windows currently!`
-
-1. Install NodeJS
-2. Get an api token in the Medrunner Profile
+1. Install [NodeJS](https://nodejs.org/en/download)
+2. Get an api token in the Staff Portal Medrunner Profile
 3. Get your sound files in the directory, they need to be `.wav`
 4. Install dependencies by `npm i`
 5. Rename `.env.example` to `.env`
