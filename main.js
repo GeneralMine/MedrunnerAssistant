@@ -54,7 +54,7 @@ if (process.env.ENABLE_TEAMUPDATE === "true") {
 	
 		console.log("New team update received");
 		await updateUser();
-		if(self.data.activeClass == 4){
+		if(self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id){
 			if(teamUpdate.waitList && teamUpdate.waitList.length > 0){
 				teamUpdate.waitList.forEach(element => {
 					console.log(element.rsiHandle + " has requested to join the team");
