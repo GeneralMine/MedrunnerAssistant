@@ -54,6 +54,14 @@ if (process.env.ENABLE_TEAMUPDATE === "true") {
 		console.log("New team update received");
 		await updateUser();
 		if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
+
+			console.log("Current join order for your team is:");
+			let i = 1;
+			teamUpdate.members.forEach((element) => {
+				console.log(i + ". " + element.rsiHandle);
+				i++;
+			});
+
 			if (teamUpdate.waitList && teamUpdate.waitList.length > 0) {
 				teamUpdate.waitList.forEach((element) => {
 					console.log(element.rsiHandle + " has requested to join the team");
