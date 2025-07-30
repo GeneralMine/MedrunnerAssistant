@@ -1,8 +1,7 @@
 import dotenv from "dotenv";
-dotenv.config({quiet: true});
+dotenv.config({ quiet: true });
 
 import { getApi, getSelf, getWebSocket } from "./lib/medrunnerAPI.js";
-import { updateDiscordStatus, setupDiscordAPI } from "./features/discordStatus.js";
 
 import { customAlertSound } from "./features/customAlertSound.js";
 import { customChatMessageSound } from "./features/customChatMessageSound.js";
@@ -31,10 +30,6 @@ if (process.env.ENABLE_CUSTOM_TEAMJOIN_SOUND === "true") {
 
 if (process.env.ENABLE_PRINT_TEAMJOINORDER === "true") {
 	ws.on("TeamUpdate", printTeamJoinOrder);
-}
-
-if (process.env.ENABLE_DISCORD_STATUS === "true") {
-	ws.on("TeamUpdate", updateDiscordStatus);
 }
 
 ws.onreconnected(async () => {
