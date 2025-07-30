@@ -43,7 +43,7 @@ Make your life as Medrunner easier with custom alert notifications and LEAD tool
 7. Open your console and run the script `node main.js`
 
 ## Contributors
-A huge thanks to @Luebbie5000 for the support on coding this!
+A huge thanks to @Luebbi5000 for the support on coding this!
 
 If you want to participate in the development you are free to open a Pull Request, open an issue for e.g. a feature request or bug reports.
 You can also send me a message on discord with the handle `.generalmine`
