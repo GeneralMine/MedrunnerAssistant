@@ -53,6 +53,7 @@ if (process.env.ENABLE_TEAMUPDATE === "true") {
 	ws.on("TeamUpdate", async (teamUpdate) => {
 		console.log("New team update received");
 		await updateUser();
+
 		if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
 
 			console.log("Current join order for your team is:");
