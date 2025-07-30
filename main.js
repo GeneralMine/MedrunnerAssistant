@@ -12,8 +12,6 @@ const api = getApi();
 const self = getSelf();
 const ws = getWebSocket();
 
-await setupDiscordAPI();
-
 // Add event listeners for the WebSocket
 
 if (process.env.ENABLE_CUSTOM_ALERT_SOUND === "true") {
