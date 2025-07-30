@@ -3,7 +3,7 @@ import { playAudio } from "./playAudio.js";
 
 export async function customTeamJoinSound(teamUpdate) {
 	if (process.env.DEBUG_MODE === "true") {
-		console.log("New team update received");
+		console.log("TeamJoinSound: New team update received");
 	}
 
 	const self = await getSelf();

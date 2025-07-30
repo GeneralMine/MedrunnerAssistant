@@ -1,7 +1,11 @@
+import { getSelf } from "../lib/medrunnerAPI.js";
+
 export async function printTeamJoinOrder(teamUpdate) {
 	if (process.env.DEBUG_MODE === "true") {
-		console.log("New team update received");
+		console.log("TeamJoinOrder: New team update received");
 	}
+
+	const self = await getSelf();
 
 	if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
 		console.log("Current join order for your team is:");
