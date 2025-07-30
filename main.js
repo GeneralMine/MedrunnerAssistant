@@ -12,7 +12,6 @@ const api = getApi();
 const self = getSelf();
 const ws = getWebSocket();
 
-// await setupDiscordAPI();
 
 // Add event listeners for the WebSocket
 
