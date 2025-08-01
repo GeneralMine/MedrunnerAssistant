@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@medrunner/api-client": "^0.6.1",
-    "dotenv": "^17.2.0"
-  },
-  "type": "module"
-}
