@@ -140,8 +140,3 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-
-
-#fun things
-main2.js
-features/discordStatus.js
