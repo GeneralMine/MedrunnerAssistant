@@ -8,7 +8,7 @@ export async function customChatMessageSound(chatMessage) {
 
 	const self = await getSelf();
 
-	if (self.data.id !== chatMessage.senderId) {
+	if (self.data.id !== chatMessage.senderId && self.data.activeClass == 4) {
 		try {
 			await playAudio(process.env.CUSTOM_CHATMESSAGE_SOUND);
 			console.log("Playback finished for chatmessage.");
