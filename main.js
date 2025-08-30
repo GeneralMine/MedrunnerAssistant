@@ -3,6 +3,7 @@ dotenv.config({ quiet: true });
 
 import { getApi, getSelf, getWebSocket } from "./lib/medrunnerAPI.js";
 
+import { onEmergencyCreate, onEmergencyUpdate } from "./features/trackLeadResponseTime.js";
 import { customAlertSound } from "./features/customAlertSound.js";
 import { customChatMessageSound } from "./features/customChatMessageSound.js";
 import { customTeamJoinSound } from "./features/customTeamJoinSound.js";
@@ -28,6 +29,11 @@ if (process.env.ENABLE_CUSTOM_TEAMJOIN_SOUND === "true") {
 
 if (process.env.ENABLE_PRINT_TEAMJOINORDER === "true") {
 	ws.on("TeamUpdate", printTeamJoinOrder);
+}
+
+if (process.env.ENABLE_TRACK_LEAD_RESPONSE === "true") {
+	ws.on("EmergencyCreate", onEmergencyCreate);
+	ws.on("EmergencyUpdate", onEmergencyUpdate);
 }
 
 ws.onreconnected(async () => {
