@@ -35,7 +35,6 @@ export function onEmergencyCreate(e) {
 
 // Handler for when an emergency is updated.
 export function onEmergencyUpdate(e) {
-  console.log(e);
   const s = ensure(e.id);
 
   // If the timestamps haven't already been set, we fill in timestamps.
