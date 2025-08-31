@@ -36,7 +36,7 @@ export function onEmergencyCreate(e, teamLeadId) {
 }
 
 // Handler for when an emergency is updated.
-export function onEmergencyUpdate(e) {
+export function onEmergencyUpdate(e, teamLeadId) {
   const s = ensure(e.id);
 
   // Guard clause: skip if this emergency doesn't belong to this team lead
