@@ -4,7 +4,7 @@ const em = new Map();
 // Here I am converting the input to a Date object or returning 'null' if the input is invalid. (I think canceled / aborted missions cause a null - I haven't added guard cases for this yet)
 const toDate = v => (v == null ? null : (typeof v === "number" ? new Date(v) : new Date(v)));
 
-// This just returns a readable UTC sctring or 'unknown' if no date is provided. 
+// This just returns a readable UTC string or 'unknown' if no date is provided. 
 // I did originally have return date.toLocaleString("en-GB", { hour12: false }); so that users could change their own times. But I think UTC is just generally better and can be improved later.
 function formattedTime(date) {
   if (!date) return "unknown";
@@ -12,6 +12,7 @@ function formattedTime(date) {
 }
 
 // Just converting milliseconds into hh:mm:ss format. Nothing special.
+// I think there is an easier way of doing this, but I just converted this from an old python project and turned it into JS...
 function formattedDuration(ms) {
   if (ms == null || isNaN(ms)) return "n/a";
   const s = Math.max(0, Math.floor(ms / 1000));
@@ -21,7 +22,7 @@ function formattedDuration(ms) {
   return `${hh}:${mm}:${ss}`;
 }
 
-// This ensures that out map has an entry for a given emergency ID. If it doesn't, it just initialises it.
+// This ensures that our map has an entry for a given emergency ID. If it doesn't, it just initialises it.
 function ensure(emId) {
   if (!em.has(emId)) em.set(emId, { createdAt: null, acceptedAt: null, completedAt: null, logged: false });
   return em.get(emId);
@@ -42,14 +43,14 @@ export function onEmergencyUpdate(e) {
   s.acceptedAt = s.acceptedAt || toDate(e.acceptedTimestamp);
   s.completedAt = s.completedAt || toDate(e.completionTimestamp);
 
-  // exit early if the emergency isn't completed or has already bene logged.
+  // exit early if the emergency isn't completed or has already been logged.
   if (!s.completedAt || s.logged) return;
 
-  // Here I am just calculating durations from creation to acceptiance and to completion.
+  // Here I am just calculating durations from creation to acceptance and to completion.
   const responseDur = (s.createdAt && s.acceptedAt) ? formattedDuration(s.acceptedAt - s.createdAt) : "n/a";
   const totalDur    = (s.createdAt && s.completedAt) ? formattedDuration(s.completedAt - s.createdAt) : "n/a";
 
-  // Finally, here is the final console poutpuf of the emergency's overall lifecycle. 
+  // Finally, here is the final console output of the emergency's overall lifecycle. 
   console.log([
     `\n[SUMMARY] Emergency ${e.id} — "${e.missionName}"`,
     `  Emergency Call Created:   ${formattedTime(s.createdAt)}`,
