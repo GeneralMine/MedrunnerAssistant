@@ -23,20 +23,24 @@ function formattedDuration(ms) {
 }
 
 // This ensures that our map has an entry for a given emergency ID. If it doesn't, it just initialises it.
-function ensure(emId) {
-  if (!em.has(emId)) em.set(emId, { createdAt: null, acceptedAt: null, completedAt: null, logged: false });
+function ensure(emId, teamLeadId = null) {
+  if (!em.has(emId)) em.set(emId, { createdAt: null, acceptedAt: null, completedAt: null, logged: false, teamLeadId });
   return em.get(emId);
 }
 
 // Handler for when an emergency is created.
-export function onEmergencyCreate(e) {
-  const s = ensure(e.id);
+export function onEmergencyCreate(e, teamLeadId) {
+  const s = ensure(e.id, teamLeadId);
+  s.teamLeadId = s.teamLeadId || teamLeadId;
   s.createdAt = s.createdAt || toDate(e.creationTimestamp ?? e.created);
 }
 
 // Handler for when an emergency is updated.
 export function onEmergencyUpdate(e) {
   const s = ensure(e.id);
+
+  // Guard clause: skip if this emergency doesn't belong to this team lead
+  if (s.teamLeadId && s.teamLeadId !== teamLeadId) return;
 
   // If the timestamps haven't already been set, we fill in timestamps.
   s.createdAt  = s.createdAt  || toDate(e.creationTimestamp ?? e.created);
@@ -59,4 +63,7 @@ export function onEmergencyUpdate(e) {
   ].join("\n"));
 
   s.logged = true;
+
+  // Deleting the mission from the map to prevent any risk of memory leak and stale data etc etc.
+  em.delete(e.id);
 }
