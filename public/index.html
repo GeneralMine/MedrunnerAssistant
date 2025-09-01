@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Medrunner Assistant</title>
+  <link rel="icon" href="assets/icon.ico"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <aside>
+    <div class="brand">
+      <img src="assets/favicon.png" width="20" height="20" alt="Medrunner"/>
+      <div>
+        <div style="font-weight:700">Medrunner</div>
+        <div class="muted">Assistant</div>
+      </div>
+    </div>
+    <nav>
+      <button id="tab-portal"    class="btn active">Staff Portal</button>
+      <button id="tab-dashboard" class="btn">Dashboard</button>
+      <button id="tab-settings"  class="btn">Settings</button>
+      <button id="tab-logs"      class="btn">Logs</button>
+    </nav>
+  </aside>
+
+  <header><h1>Medrunner Assistant</h1></header>
+
+  <main>
+    <!-- Staff Portal -->
+    <section id="pane-portal" class="card">
+      <div id="portalTitle" class="sectionTitle">Staff Portal</div>
+      <div id="portalWrap">
+        <webview id="portal"
+                 src="https://staff.medrunner.space/login"
+                 allowpopups></webview>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="pane-dashboard" class="card hidden">
+      <div class="container">
+        <div class="sectionTitle">Assistant</div>
+        <div class="row">
+          <div class="col">
+            <div class="row" style="margin-top:8px">
+              <button id="btnStart" class="btn-prim">Start Assistant</button>
+              <button id="btnStop"  class="btn-sec">Stop</button>
+              <span id="statusTxt" class="muted mono" style="align-self:center"></span>
+            </div>
+            <div class="muted" style="margin-top:6px">Uses the API key saved in Settings.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="pane-settings" class="card hidden">
+      <div class="container">
+        <div class="sectionTitle">Alerts & Notifications</div>
+        <div class="row">
+          <div class="col">
+            <label>Notification Sound</label>
+            <input id="notifFile" type="file" accept="audio/*"/>
+            <div class="row" style="margin-top:8px">
+              <button id="notifPreview" class="btn-sec">Preview</button>
+              <button id="notifClear"   class="btn-sec">Clear</button>
+            </div>
+          </div>
+          <div class="col">
+            <label>Mission Ping Sound</label>
+            <input id="pingFile" type="file" accept="audio/*"/>
+            <div class="row" style="margin-top:8px">
+              <button id="pingPreview" class="btn-sec">Preview</button>
+              <button id="pingClear"   class="btn-sec">Clear</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sectionTitle" style="margin-top:12px">API</div>
+        <div class="row" style="align-items:center">
+          <input id="apiKey" type="text" placeholder="Paste your API key..." style="flex:1"/>
+          <button id="btnSaveApi"  class="btn-prim">Save API Key</button>
+          <button id="btnCheckApi" class="btn-sec">Check Now</button>
+          <div id="apiStatus" class="status status--idle" title="Not checked">
+            <span class="dot"></span><span class="label">Not checked</span>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <button id="btnTestAlert" class="btn-prim">Test Alert</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGS -->
+    <section id="pane-logs" class="card hidden">
+      <div class="container">
+        <div class="sectionTitle">Logs</div>
+        <div id="logs" class="mono"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Your app-specific JS that was inline -->
+  <script src="app.js" defer></script>
+  <!-- Existing logic you already had -->
+  <script src="renderer.js" defer></script>
+
+  <!-- Hidden audio for splash -->
+  <audio id="splashAudio" preload="auto">
+    <source src="assets/splash.mp3" type="audio/mpeg">
+  </audio>
+</body>
+</html>

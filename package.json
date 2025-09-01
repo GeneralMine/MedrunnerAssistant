@@ -1,7 +1,18 @@
 {
+  "name": "medrunner-assistant",
+  "version": "1.0.0",
+  "description": "Medrunner Assistant",
+  "main": "main.js",
+  "productName": "Medrunner Assistant",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^28.2.0",
+    "electron-packager": "^17.1.2"
+  },
   "dependencies": {
     "@medrunner/api-client": "^0.6.1",
     "dotenv": "^17.2.0"
-  },
-  "type": "module"
+  }
 }

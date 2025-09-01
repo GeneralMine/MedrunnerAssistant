@@ -1,0 +1,89 @@
+:root{
+  --bg:#0b1020;--panel:#121831;--border:#1b2442;--ring:#3a4266;--muted:#9aa3b2;--text:#e6edf3;
+  --accent:#d22;--g:#3ddc97;--r:#ff5c5c;--y:#ffd166
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font:14px/1.4 Inter,system-ui,Segoe UI,Arial;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  grid-template-rows:56px 1fr;
+  grid-template-areas:"side top" "side main";
+}
+header{grid-area:top;display:flex;align-items:center;gap:10px;padding:0 16px;background:var(--panel);border-bottom:1px solid var(--border)}
+aside{grid-area:side;background:var(--panel);border-right:1px solid var(--border);padding:16px 12px}
+main{grid-area:main;padding:14px;min-height:0;height:calc(100vh - 56px)}
+h1{margin:0;font-size:16px}
+.brand{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.muted{color:var(--muted);font-size:12px;margin-top:-2px}
+
+nav{display:flex;flex-direction:column;gap:6px}
+.btn{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;color:var(--text);border:1px solid transparent;background:none;cursor:pointer}
+.btn:hover{background:#0f1530;border-color:var(--ring)}
+.btn.active{background:#111942;border-color:var(--ring)}
+
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;height:100%}
+.hidden{display:none !important}
+
+/* --- FORCE PORTAL TO FULL HEIGHT ------------------------------ */
+/* --- PORTAL: make the section a column and the webview flex-fill --- */
+#pane-portal {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+#portalTitle {
+  padding: 14px;                
+  flex: 0 0 auto;
+}
+
+#portalWrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+}
+
+#portal {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  border: none;
+  background: #0b1020;
+  display: block;
+}
+
+
+/* Stop the outer document from scrolling; let the webview scroll inside */
+html, body { height: 100%; overflow: hidden; }
+
+main { height: calc(100vh - 56px); min-height: 0; overflow: hidden; }
+
+#pane-portal { overflow: hidden; }       /* keep the card from creating a page scroll */
+aside { overflow: auto; }                /* sidebar can scroll if it gets tall */
+
+/* Containers */
+.container{padding:14px;height:100%;display:flex;flex-direction:column;gap:14px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.col{flex:1 1 360px}
+.sectionTitle{font-weight:600;margin-bottom:6px}
+label{display:block;color:var(--muted);margin:8px 0 4px}
+input[type="text"]{width:100%;padding:10px 12px;border-radius:10px;background:#0e1530;color:#fff;border:1px solid var(--border)}
+.btn-prim{background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer}
+.btn-sec{background:#0f1530;border:1px solid var(--ring);color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer}
+
+/* API status pill */
+.status{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 10px;border-radius:999px;font-size:12px;
+  border:1px solid #24304f;background:#0f1630;color:#c9d2e3
+}
+.status .dot{width:10px;height:10px;border-radius:50%;background:#667085}
+.status--idle     .dot{background:#667085}.status--idle     .label{color:#98a2b3}
+.status--checking .dot{background:#ffd166}.status--checking .label{color:#ffd166}
+.status--ok       .dot{background:#3ddc97}.status--ok       .label{color:#3ddc97}
+.status--bad      .dot{background:#ff5c5c}.status--bad      .label{color:#ff5c5c}
+.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+#logs{height:100%;border:1px solid var(--border);border-radius:12px;background:#0b1020;padding:10px;overflow:auto;white-space:pre-wrap}

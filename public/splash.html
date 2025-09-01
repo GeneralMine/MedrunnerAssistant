@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Medrunner Assistant - Splash</title>
+  <style>
+    html,body { height:100%; margin:0 }
+    body { display:flex; justify-content:center; align-items:center; background:#0b1020 }
+    video { max-width:80%; max-height:80% }
+  </style>
+</head>
+<body>
+  <video id="splashVideo" autoplay playsinline>
+    <source src="assets/splash.webm" type="video/webm">
+  </video>
+  <script>
+    const v = document.getElementById('splashVideo');
+    
+    v.addEventListener('play', () => {
+      window.splash?.startAudio?.();
+    });
+
+    v.addEventListener('ended', () => {
+      window.splash?.ended?.();
+    });
+  </script>
+</body>
+</html>
