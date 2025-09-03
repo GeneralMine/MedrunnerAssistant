@@ -5,6 +5,7 @@ Make your life as Medrunner easier with custom alert notifications and LEAD tool
 - `Alert`: Custom sound for incoming alerts
 - `Chat`: Custom sound for client chat messages
 - `Team`: Custom sound for team join requests
+- `Team`: Print team members join order
 
 ## Planned features:
 - `AAR`: Autofill AAR Template based on clients questionaire from the chat

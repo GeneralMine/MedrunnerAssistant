@@ -1,7 +1,32 @@
 {
+  "type": "module",
+  "name": "medrunnerassistant",
+  "version": "0.2.0",
+  "description": "MedrunnerAssistant customizes the Medrunners Experience on duty",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
   "dependencies": {
     "@medrunner/api-client": "^0.6.1",
     "dotenv": "^17.2.0"
   },
-  "type": "module"
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeneralMine/MedrunnerAssistant.git"
+  },
+  "keywords": [
+    "Medrunner"
+  ],
+  "author": "GeneralMine, Luebbi3000",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GeneralMine/MedrunnerAssistant/issues"
+  },
+  "homepage": "https://github.com/GeneralMine/MedrunnerAssistant#readme"
 }
