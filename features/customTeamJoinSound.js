@@ -1,9 +1,14 @@
 import { getSelf } from "../lib/medrunnerAPI.js";
-import { playAudio } from "./playAudio.js";
+import { playAudio } from "../lib/playAudio.js";
 
-export async function customTeamJoinSound(teamUpdate) {
+export const event = "TeamUpdate";
+
+export const name = "Custom_TeamJoin_Sound";
+
+export async function callback(teamUpdate) {
 	if (process.env.DEBUG_MODE === "true") {
 		console.log("TeamJoinSound: New team update received");
+		console.log(JSON.stringify(teamUpdate, null, 4));
 	}
 
 	const self = await getSelf();

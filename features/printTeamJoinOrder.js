@@ -1,8 +1,13 @@
 import { getSelf } from "../lib/medrunnerAPI.js";
 
-export async function printTeamJoinOrder(teamUpdate) {
+export const event = "TeamUpdate";
+
+export const name = "Print_TeamJoinOrder";
+
+export async function callback(teamUpdate) {
 	if (process.env.DEBUG_MODE === "true") {
 		console.log("TeamJoinOrder: New team update received");
+		console.log(JSON.stringify(teamUpdate, null, 4));
 	}
 
 	const self = await getSelf();

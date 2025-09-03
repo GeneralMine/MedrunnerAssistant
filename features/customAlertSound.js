@@ -1,8 +1,13 @@
-import { playAudio } from "./playAudio.js";
+import { playAudio } from "../lib/playAudio.js";
 
-export async function customAlertSound(alert) {
+export const event = "EmergencyCreate";
+
+export const name = "Custom_Alert_Sound";
+
+export async function callback(alert) {
 	if (process.env.DEBUG_MODE === "true") {
 		console.log("New alert received: " + alert.missionName);
+		console.log(JSON.stringify(teamUpdate, null, 4));
 	}
 
 	try {
