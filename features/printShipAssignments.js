@@ -15,7 +15,7 @@ export async function callback(teamUpdate) {
 
 	if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
 		const pilot = teamUpdate.members.find((member) => member.class == 3);
-		const medics = teamUpdate.members.filter((member) => member.class == 1).sort((a, b) => a.updated - b.updated);
+		const medics = teamUpdate.members.filter((member) => member.class == 1);
 		const lead = teamUpdate.members.find((member) => member.class == 4);
 		const securities = teamUpdate.members.filter((member) => member.class == 2);
 		const cap = teamUpdate.members.filter((member) => member.class == 9);
