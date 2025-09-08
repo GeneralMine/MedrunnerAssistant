@@ -64,14 +64,16 @@ async function startAssistant(key){
   }
 
   const env = {
+    ...process.env, 
     MEDRUNNER_API_KEY: String(key || '').trim(),
+    ELECTRON_RUN_AS_NODE: '1'
   };
 
   // Spawn with Node; add CLI args here if your assistant expects them.
   child = spawn(process.execPath, [entry], {
     cwd: path.dirname(entry),
     env,
-    stdio: ['ignore', 'pipe', 'pipe']
+    stdio: ['pipe', 'pipe', 'pipe']
   });
 
   child.stdout.on('data', d => emit(String(d).trimEnd()));
@@ -104,10 +106,15 @@ function subscribeLogs(cb){
   return () => subs.delete(cb);
 }
 
+function getChildProcess() {
+  return child;
+};
+
 module.exports = {
   validateApiKey,
   startAssistant,
   stopAssistant,
   getStatus,
-  subscribeLogs
+  subscribeLogs,
+  getChildProcess
 };
