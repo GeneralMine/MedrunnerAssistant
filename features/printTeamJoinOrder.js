@@ -5,7 +5,6 @@ export const event = "TeamUpdate";
 export const name = "Print_TeamJoinOrder";
 
 export async function callback(teamUpdate) {
-	console.log("--- Team Join Order ---");
 	if (process.env.DEBUG_MODE === "true") {
 		console.log("TeamJoinOrder: New team update received");
 		console.log(JSON.stringify(teamUpdate, null, 4));
@@ -14,6 +13,7 @@ export async function callback(teamUpdate) {
 	const self = await getSelf();
 
 	if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
+		console.log("--- Team Join Order ---");
 		let i = 1;
 		teamUpdate.members.forEach((element) => {
 			console.log(i + ". " + element.rsiHandle);

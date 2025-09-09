@@ -5,7 +5,6 @@ export const event = "TeamUpdate";
 export const name = "Print_ShipAssignments";
 
 export async function callback(teamUpdate) {
-	console.log("--- Ship Assignments ---");
 	if (process.env.DEBUG_MODE === "true") {
 		console.log("ShipAssignments: New team update received");
 		console.log(JSON.stringify(teamUpdate, null, 4));
@@ -14,6 +13,7 @@ export async function callback(teamUpdate) {
 	const self = await getSelf();
 
 	if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
+		console.log("--- Ship Assignments ---");
 		const pilot = teamUpdate.members.find((member) => member.class == 3);
 		const medics = teamUpdate.members.filter((member) => member.class == 1);
 		const lead = teamUpdate.members.find((member) => member.class == 4);
