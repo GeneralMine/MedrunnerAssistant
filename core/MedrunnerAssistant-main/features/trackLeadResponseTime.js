@@ -1,61 +1,55 @@
-// Just using in-memory storage for mission data right now.
-const em = new Map();
+const timestamps = {
+  alertReceived: null,
+  mustered: null,
+  onGrid: null,
+  rtb: null
+};
 
-// Here I am converting the input to a Date object or returning 'null' if the input is invalid. (I think canceled / aborted missions cause a null - I haven't added guard cases for this yet)
-const toDate = v => (v == null ? null : (typeof v === "number" ? new Date(v) : new Date(v)));
+const MS_PER_MIN = 60_000;
+const formattedTime = (ms, digits = 2) => (ms / MS_PER_MIN).toFixed(digits);
 
-// This just returns a readable UTC sctring or 'unknown' if no date is provided. 
-// I did originally have return date.toLocaleString("en-GB", { hour12: false }); so that users could change their own times. But I think UTC is just generally better and can be improved later.
-function formattedTime(date) {
-  if (!date) return "unknown";
-  return date.toUTCString(); 
-}
+function handleStatusInput(code) {
+  const now = new Date();
+  if (code === '0') {
+    timestamps.alertReceived = now;
+    console.log(`[Alert Received] ${now.toLocaleTimeString()} - Alert Recieved and Team Mustering`);
+  } else if (code === '1') {
+    timestamps.mustered = now;
+    console.log(`[MUSTERED] ${now.toLocaleTimeString()} - Team Mustered and Deployed`);
+  } else if (code === '2') {
+    timestamps.onGrid = now;
+    console.log(`[ON-GRID] ${now.toLocaleTimeString()} - Team on Grid and With Client`);
+  } else if (code == '3') {
+    timestamps.rtb = now;
+    console.log(`[RTB] ${now.toLocaleTimeString()} - Team RTB'd to Pyro Gateway`);
+    logSummary();
+  };
+};
 
-// Just converting milliseconds into hh:mm:ss format. Nothing special.
-function formattedDuration(ms) {
-  if (ms == null || isNaN(ms)) return "n/a";
-  const s = Math.max(0, Math.floor(ms / 1000));
-  const hh = String(Math.floor(s / 3600)).padStart(2, "0");
-  const mm = String(Math.floor((s % 3600) / 60)).padStart(2, "0");
-  const ss = String(s % 60).padStart(2, "0");
-  return `${hh}:${mm}:${ss}`;
-}
+function logSummary() {
+  const { alertReceived, mustered, onGrid, rtb} = timestamps;
+  const summary = [];
 
-// This ensures that out map has an entry for a given emergency ID. If it doesn't, it just initialises it.
-function ensure(emId) {
-  if (!em.has(emId)) em.set(emId, { createdAt: null, acceptedAt: null, completedAt: null, logged: false });
-  return em.get(emId);
-}
+  if (alertReceived && mustered) {
+    const alertToMuster = formattedTime(mustered - alertReceived);
+    summary.push(`-> Alert Recieved and Team Mustering: ${alertToMuster} minutes`);
+  }
+  if (mustered && onGrid) {
+    const toGrid = formattedTime(onGrid - mustered);
+    summary.push(`-> Time from Mustering to On Grid: ${toGrid} minutes`);
+  };
 
-// Handler for when an emergency is created.
-export function onEmergencyCreate(e) {
-  const s = ensure(e.id);
-  s.createdAt = s.createdAt || toDate(e.creationTimestamp ?? e.created);
-}
+  if (onGrid && rtb) {
+    const toRTB = formattedTime(rtb - onGrid);
+    summary.push(`-> Time From On Grid To RTB: ${toRTB} minutes`);
+  };
 
-// Handler for when an emergency is updated.
-export function onEmergencyUpdate(e) {
-  const s = ensure(e.id);
+  if (mustered && rtb) {
+    const total = formattedTime(rtb - mustered);
+    summary.push(`-> Total Response Time: ${total} minutes`);
+  };
 
-  // If the timestamps haven't already been set, we fill in timestamps.
-  s.createdAt  = s.createdAt  || toDate(e.creationTimestamp ?? e.created);
-  s.acceptedAt = s.acceptedAt || toDate(e.acceptedTimestamp);
-  s.completedAt = s.completedAt || toDate(e.completionTimestamp);
+  console.log(`--- Response Summary ---\n${summary.join('\n')}`);
+};
 
-  // exit early if the emergency isn't completed or has already bene logged.
-  if (!s.completedAt || s.logged) return;
-
-  // Here I am just calculating durations from creation to acceptiance and to completion.
-  const responseDur = (s.createdAt && s.acceptedAt) ? formattedDuration(s.acceptedAt - s.createdAt) : "n/a";
-  const totalDur    = (s.createdAt && s.completedAt) ? formattedDuration(s.completedAt - s.createdAt) : "n/a";
-
-  // Finally, here is the final console poutpuf of the emergency's overall lifecycle. 
-  console.log([
-    `\n[SUMMARY] Emergency ${e.id} — "${e.missionName}"`,
-    `  Emergency Call Created:   ${formattedTime(s.createdAt)}`,
-    `  Team Deployed At:         ${formattedTime(s.acceptedAt)}  (response: ${responseDur})`,
-    `  Team Returned to Base At: ${formattedTime(s.completedAt)}  (total: ${totalDur})`,
-  ].join("\n"));
-
-  s.logged = true;
-}
+export { handleStatusInput };
