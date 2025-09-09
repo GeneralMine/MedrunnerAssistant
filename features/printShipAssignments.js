@@ -1,3 +1,4 @@
+import { getCurrentHammertimeAgo } from "../lib/hammertime.js";
 import { getSelf } from "../lib/medrunnerAPI.js";
 
 export const event = "TeamUpdate";
@@ -14,13 +15,14 @@ export async function callback(teamUpdate) {
 
 	if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
 		console.log("--- Ship Assignments ---");
-		const pilot = teamUpdate.members.find((member) => member.class == 3);
-		const medics = teamUpdate.members.filter((member) => member.class == 1);
-		const lead = teamUpdate.members.find((member) => member.class == 4);
-		const securities = teamUpdate.members.filter((member) => member.class == 2);
-		const cap = teamUpdate.members.filter((member) => member.class == 9);
+		const pilot = teamUpdate.members.find((member) => member.class == 3) || self;
+		const medics = teamUpdate.members.filter((member) => member.class == 1) || [];
+		const lead = teamUpdate.members.find((member) => member.class == 4) || self;
+		const securities = teamUpdate.members.filter((member) => member.class == 2) || [];
+		const cap = teamUpdate.members.filter((member) => member.class == 9) || [];
 
 		console.log(`# **__Ship Assignments__**
+*Updated: ${getCurrentHammertimeAgo()}*
 __**Gunship**__ *${pilot.rsiHandle} Hangar*
 :MRS_Pilot:  -  ${pilot.rsiHandle}
 :MRS_Teamlead:  -  ${lead.rsiHandle}`);

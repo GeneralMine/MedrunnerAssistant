@@ -13,7 +13,7 @@ export async function callback(teamUpdate) {
 	const self = await getSelf();
 
 	if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
-		console.log("--- Team Join Order ---");
+		console.log("\n--- Team Join Order ---");
 		let i = 1;
 		teamUpdate.members.forEach((element) => {
 			console.log(i + ". " + element.rsiHandle);
