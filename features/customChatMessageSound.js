@@ -1,9 +1,14 @@
 import { getSelf } from "../lib/medrunnerAPI.js";
-import { playAudio } from "./playAudio.js";
+import { playAudio } from "../lib/playAudio.js";
 
-export async function customChatMessageSound(chatMessage) {
+export const event = "ChatMessageCreate";
+
+export const name = "Custom_ChatMessage_Sound";
+
+export async function callback(chatMessage) {
 	if (process.env.DEBUG_MODE === "true") {
 		console.log("New chat message received: " + JSON.stringify(chatMessage.contents));
+		console.log(JSON.stringify(teamUpdate, null, 4));
 	}
 
 	const self = await getSelf();

@@ -1,14 +1,19 @@
 import { getSelf } from "../lib/medrunnerAPI.js";
 
-export async function printTeamJoinOrder(teamUpdate) {
+export const event = "TeamUpdate";
+
+export const name = "Print_TeamJoinOrder";
+
+export async function callback(teamUpdate) {
 	if (process.env.DEBUG_MODE === "true") {
 		console.log("TeamJoinOrder: New team update received");
+		console.log(JSON.stringify(teamUpdate, null, 4));
 	}
 
 	const self = await getSelf();
 
 	if (self.data.activeClass == 4 && self.data.activeTeam == teamUpdate.id) {
-		console.log("Current join order for your team is:");
+		console.log("\n--- Team Join Order ---");
 		let i = 1;
 		teamUpdate.members.forEach((element) => {
 			console.log(i + ". " + element.rsiHandle);
