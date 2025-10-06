@@ -30,7 +30,10 @@ __**Gunship**__ *${pilot.rsiHandle} Hangar*
 		if (medics.length >= 3) console.log(`:MRS_Medical:  -  ${medics[2].rsiHandle}`);
 		if (securities.length >= 1) console.log(`:MRS_Security:  -  ${securities[0].rsiHandle}`);
 		if (securities.length >= 2) console.log(`:MRS_Security:  -  ${securities[1].rsiHandle}`);
-		if (securities.length >= 4) console.log(`:MRS_Security:  -  ${securities[3].rsiHandle}`);
+		for (let i = 3; i < securities.length; i++) {
+			if (i > 3) break;
+			console.log(`:MRS_Security:  -  ${securities[i].rsiHandle}`);
+		}
 
 		console.log(`
 __**Medship**__ *${medics[0].rsiHandle} Hangar*
@@ -39,8 +42,9 @@ __**Medship**__ *${medics[0].rsiHandle} Hangar*
 
 		if (cap.length >= 1) {
 			console.log("\n__**Combat Aerospace Patrol**__");
-			console.log(`:CAP:  -  ${cap[0].rsiHandle}`);
+			for (let i = 0; i < cap.length; i++) {
+				console.log(`:CAP:  -  ${cap[i].rsiHandle}`);
+			}
 		}
-		if (cap.length >= 2) console.log(`:CAP:  -  ${cap[1].rsiHandle}`);
 	}
 }
