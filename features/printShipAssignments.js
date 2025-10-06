@@ -27,8 +27,10 @@ __**Gunship**__ *${pilot.rsiHandle} Hangar*
 :MRS_Pilot:  -  ${pilot.rsiHandle}
 :MRS_Teamlead:  -  ${lead.rsiHandle}`);
 		if (medics.length >= 2) console.log(`:MRS_Medical:  -  ${medics[1].rsiHandle}`);
+		if (medics.length >= 3) console.log(`:MRS_Medical:  -  ${medics[2].rsiHandle}`);
 		if (securities.length >= 1) console.log(`:MRS_Security:  -  ${securities[0].rsiHandle}`);
 		if (securities.length >= 2) console.log(`:MRS_Security:  -  ${securities[1].rsiHandle}`);
+		if (securities.length >= 4) console.log(`:MRS_Security:  -  ${securities[3].rsiHandle}`);
 
 		console.log(`
 __**Medship**__ *${medics[0].rsiHandle} Hangar*
