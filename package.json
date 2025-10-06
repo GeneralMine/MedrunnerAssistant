@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "medrunnerassistant",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "MedrunnerAssistant customizes the Medrunners Experience on duty",
   "main": "main.js",
   "directories": {
