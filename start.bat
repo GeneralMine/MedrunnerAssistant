@@ -1,6 +1,6 @@
 git pull
 
-npm i
+call npm i
 
 npm start
 
