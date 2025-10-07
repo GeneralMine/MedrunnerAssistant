@@ -10,6 +10,11 @@ export async function callback(alert) {
 		console.log(JSON.stringify(teamUpdate, null, 4));
 	}
 
+	// Don't play the sound if the alert is an academy lesson
+	if (alert.origin === 3) {
+		return;
+	}
+
 	try {
 		await playAudio(process.env.CUSTOM_ALERT_SOUND);
 		console.log("Playback finished for alert.");

@@ -4,6 +4,7 @@ dotenv.config({ quiet: true });
 import { getApi, getSelf, getWebSocket } from "./lib/medrunnerAPI.js";
 import fs from "fs";
 import path from "path";
+import { removeTeamFromMap } from "./lib/teamOrderPlace.js";
 
 const api = getApi();
 const self = getSelf();
@@ -37,3 +38,5 @@ for (const file of files) {
 		}
 	}
 }
+
+ws.on("TeamDelete", removeTeamFromMap);
