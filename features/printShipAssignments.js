@@ -31,7 +31,6 @@ __**Gunship**__ *${pilot.rsiHandle} Hangar*
 		if (securities.length >= 1) console.log(`:MRS_Security:  -  ${securities[0].rsiHandle}`);
 		if (securities.length >= 2) console.log(`:MRS_Security:  -  ${securities[1].rsiHandle}`);
 		for (let i = 3; i < securities.length; i++) {
-			if (i > 3) break;
 			console.log(`:MRS_Security:  -  ${securities[i].rsiHandle}`);
 		}
 
